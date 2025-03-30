@@ -13,7 +13,7 @@
             margin: 0;
             overflow: hidden;
         }
-        
+
         .book {
             position: absolute;
             top: 50%;
@@ -30,12 +30,20 @@
             height: 100%;
             background: url('pergamino.jpg') no-repeat center center / cover;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 1s;
+            transition: transform 1s, z-index 1s;
             transform-origin: left;
         }
 
+        /* Ajuste de apilamiento de páginas */
+        .page:nth-child(1) { z-index: 5; }
+        .page:nth-child(2) { z-index: 4; }
+        .page:nth-child(3) { z-index: 3; }
+        .page:nth-child(4) { z-index: 2; }
+        .page:nth-child(5) { z-index: 1; }
+
         .flipped {
             transform: rotateY(-180deg);
+            z-index: 0;
         }
 
         .text-content {
@@ -72,21 +80,24 @@
         <div class="page" id="page2">
             <div class="text-content">
                 <h2>Página 1: El Destino de Dos Corazones</h2>
-                <p>...</p> <!-- Aquí va la poesía de la primera página -->
+                <p>Nació en un pueblo de tierra y quebranto,  
+                   donde el sol doraba su piel con encanto...</p>
             </div>
         </div>
 
         <div class="page" id="page3">
             <div class="text-content">
                 <h2>Página 2: Caminos Paralelos</h2>
-                <p>...</p> <!-- Aquí va la poesía de la segunda página -->
+                <p>Cruzaron senderos en su mocedad,  
+                   miradas furtivas, callada ansiedad...</p>
             </div>
         </div>
 
         <div class="page" id="page4">
             <div class="text-content">
                 <h2>Página 3: El Encuentro Inesperado</h2>
-                <p>...</p> <!-- Aquí va la poesía de la tercera página -->
+                <p>Era la estación del barrio olvidado,  
+                   donde sus ojos se vieron de lado...</p>
             </div>
         </div>
 
@@ -109,8 +120,13 @@
 
         function showPage(page) {
             document.querySelectorAll('.page').forEach((el, index) => {
-                if (index + 1 < page) el.classList.add('flipped');
-                else el.classList.remove('flipped');
+                if (index + 1 < page) {
+                    el.classList.add('flipped');
+                    el.style.zIndex = 0;
+                } else {
+                    el.classList.remove('flipped');
+                    el.style.zIndex = totalPages - index;
+                }
             });
         }
 
