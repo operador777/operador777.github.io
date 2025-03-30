@@ -1,1 +1,1 @@
-Landing tmppl
+Un solo destino.
